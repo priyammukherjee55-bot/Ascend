@@ -1,0 +1,131 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isAuthenticated() && getUserData().role == role;
+    }
+
+    function isAdmin() {
+      return hasRole('admin');
+    }
+
+    function isOrganizer() {
+      return hasRole('organizer') || isAdmin();
+    }
+
+    // Users and Profiles
+    match /users/{userId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Saved Search Configs
+    match /saved_searches/{searchId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == resource.data.userId;
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+    }
+
+    // Follows
+    match /follows/{followId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.followerId;
+      allow delete: if isAuthenticated() && request.auth.uid == resource.data.followerId;
+    }
+
+    // Team Invitations
+    match /team_invites/{inviteId} {
+      allow read: if isAuthenticated() && (resource.data.receiverId == request.auth.uid || resource.data.senderId == request.auth.uid);
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && (resource.data.receiverId == request.auth.uid || resource.data.senderId == request.auth.uid);
+    }
+
+    // Team Join Requests
+    match /team_join_requests/{requestId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      allow update, delete: if isAuthenticated();
+    }
+
+    // Teams
+    match /teams/{teamId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Matches & Coin Toss updates
+    match /matches/{matchId} {
+      allow read: if true;
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Tournaments & Leagues
+    match /tournaments/{tournamentId} {
+      allow read: if true;
+      allow create: if isOrganizer();
+      allow update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Cricket match statistics
+    match /stats_cricket/{statId} {
+      allow read: if true;
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Football match statistics
+    match /stats_football/{statId} {
+      allow read: if true;
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Audit logs for admin actions
+    match /audit_logs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated();
+      allow update, delete: if false; // immutable audit logs
+    }
+
+    // Live Commentary logs
+    match /commentary/{commentaryId} {
+      allow read: if true;
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Standardized Ability Tests
+    match /ability_tests/{testId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      allow update: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+      allow delete: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+    }
+
+    // Notifications
+    match /notifications/{notifId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+  }
+}

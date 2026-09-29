@@ -1,0 +1,84 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with athlete metadata, ability scores, and contact information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique Firebase Auth UID" },
+        "name": { "type": "string", "description": "Full name of the user" },
+        "email": { "type": "string", "description": "User email address" },
+        "role": { "type": "string", "description": "User system role" },
+        "experienceLevel": { "type": "string", "description": "Skill level" },
+        "activeSports": { "type": "array", "description": "List of sports active in" },
+        "createdAt": { "type": "number", "description": "Creation timestamp in ms" },
+        "updatedAt": { "type": "number", "description": "Last updated timestamp in ms" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "Live and completed sports match record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique match ID" },
+        "sport": { "type": "string", "description": "Sport type (cricket or football)" },
+        "title": { "type": "string", "description": "Title or tournament header" },
+        "status": { "type": "string", "description": "Match status (scheduled, live, completed)" },
+        "homeTeam": { "type": "object", "description": "Home team details and roster" },
+        "awayTeam": { "type": "object", "description": "Away team details and roster" },
+        "createdAt": { "type": "number", "description": "Timestamp in ms" },
+        "updatedAt": { "type": "number", "description": "Last update timestamp" }
+      },
+      "required": ["id", "sport", "status"]
+    },
+    "AbilityTest": {
+      "title": "AbilityTest",
+      "description": "Athlete standardized physical drill or skill evaluation result",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique record ID" },
+        "userId": { "type": "string", "description": "Athlete user UID" },
+        "sport": { "type": "string", "description": "Sport evaluated" },
+        "testType": { "type": "string", "description": "Drill or test type identifier" },
+        "rawValue": { "type": "number", "description": "Raw measurement (seconds, km/h, count)" },
+        "calculatedScore": { "type": "number", "description": "Normalized 0-100 rating" },
+        "tierLabel": { "type": "string", "description": "Ability tier achieved" },
+        "testedAt": { "type": "number", "description": "Timestamp of test execution" }
+      },
+      "required": ["id", "userId", "sport", "testType", "calculatedScore"]
+    },
+    "Commentary": {
+      "title": "Commentary",
+      "description": "Multi-lingual ball-by-ball or minute-by-minute live match commentary line",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Commentary entry ID" },
+        "matchId": { "type": "string", "description": "Parent match ID" },
+        "textEn": { "type": "string", "description": "English commentary text" },
+        "textHi": { "type": "string", "description": "Hindi commentary text" },
+        "textBn": { "type": "string", "description": "Bengali commentary text" },
+        "timestamp": { "type": "number", "description": "Generation timestamp" }
+      },
+      "required": ["id", "matchId", "textEn"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles and athlete identity records"
+    },
+    "/matches/{matchId}": {
+      "schema": "Match",
+      "description": "Collection of live, scheduled, and past match records"
+    },
+    "/ability_tests/{testId}": {
+      "schema": "AbilityTest",
+      "description": "Collection of logged ability test records and drill scores"
+    },
+    "/commentary/{commentaryId}": {
+      "schema": "Commentary",
+      "description": "Collection of live multi-language match commentary events"
+    }
+  }
+}

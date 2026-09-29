@@ -1,0 +1,6 @@
+{
+  "name": "ASCEND - Sports Platform",
+  "description": "ASCEND: Modern high-contrast multi-sport platform for Cricket and Football with real-time stats, team management, player profiles, and match commentary.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

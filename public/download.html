@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download ASCEND Sports Platform Codebase</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #09090b;
+      color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .card {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 580px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    p {
+      color: #a1a1aa;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0 0 24px 0;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (min-width: 480px) {
+      .btn-group {
+        flex-direction: row;
+      }
+    }
+    .btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: #10b981;
+      color: #09090b;
+    }
+    .btn-primary:hover {
+      background: #34d399;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #27272a;
+      color: #ffffff;
+      border: 1px solid #3f3f46;
+    }
+    .btn-secondary:hover {
+      background: #3f3f46;
+      transform: translateY(-1px);
+    }
+    .terminal-box {
+      background: #09090b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      color: #e4e4e7;
+      word-break: break-all;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .terminal-label {
+      color: #71717a;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .copy-btn {
+      margin-top: 8px;
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      color: #a1a1aa;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .copy-btn:hover {
+      color: #ffffff;
+      background: #3f3f46;
+    }
+    .footer-note {
+      font-size: 12px;
+      color: #71717a;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Official Codebase Export</span>
+    <h1>Download ASCEND Sports Platform</h1>
+    <p>Complete 74-file repository archive including React 18, TypeScript, Three.js 3D Game Arena, CrickHeroes & Cricbuzz manual scoring engines, and Firebase configuration.</p>
+
+    <div class="btn-group">
+      <a href="/ascend-sports-platform.zip" download="ascend-sports-platform.zip" class="btn btn-primary" id="zipBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download .ZIP (335 KB)
+      </a>
+      <a href="/ascend-sports-platform-codebase.pdf" download="ascend-sports-platform-codebase.pdf" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Download .PDF Guide
+      </a>
+    </div>
+
+    <div class="terminal-box">
+      <div class="terminal-label">Or Download Directly in Terminal (Mac / Linux / Windows WSL)</div>
+      <div id="curlCmd">curl -O https://ais-dev-zyfw3btle47x56qwslcdx7-123130799825.asia-southeast1.run.app/ascend-sports-platform.zip && unzip ascend-sports-platform.zip -d ascend-sports-platform</div>
+      <button class="copy-btn" onclick="copyCommand()">Copy Terminal Command</button>
+    </div>
+
+    <div class="footer-note">
+      Tip: If your browser blocks popups, right-click the "Download .ZIP" button above and choose <strong>"Save Link As..."</strong>.
+    </div>
+  </div>
+
+  <script>
+    function copyCommand() {
+      const text = document.getElementById('curlCmd').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied terminal download command to clipboard!');
+      });
+    }
+
+    // Auto trigger download when opened in standalone tab
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = '/ascend-sports-platform.zip';
+        link.download = 'ascend-sports-platform.zip';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, 600);
+    });
+  </script>
+</body>
+</html>
